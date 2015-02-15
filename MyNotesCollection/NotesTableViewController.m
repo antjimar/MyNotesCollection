@@ -62,6 +62,8 @@ NSString * const kCellID = @"CellId";
     UITableViewCell *cell = [self.notesTableView dequeueReusableCellWithIdentifier:kCellID];
     Note *note = self.notes[indexPath.row];
     cell.textLabel.text = note.noteName;
+    cell.textLabel.numberOfLines = 0;
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     
     return cell;
 }
@@ -74,6 +76,21 @@ NSString * const kCellID = @"CellId";
     return self.notes.count;
 }
 
+
+#pragma mark - Table view delegate Methods
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UILabel *gettingSizeLabel = [[UILabel alloc] init];
+    gettingSizeLabel.text = [(Note *)self.notes[indexPath.row] noteName];
+    gettingSizeLabel.numberOfLines = 0;
+    gettingSizeLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    CGSize maximumLabelSize = CGSizeMake(310, 9999);
+    
+    CGSize expectSize = [gettingSizeLabel sizeThatFits:maximumLabelSize];
+    
+    return expectSize.height + 10;
+}
 
 #pragma mark - NoteViewControllerDelegate Methods
 
