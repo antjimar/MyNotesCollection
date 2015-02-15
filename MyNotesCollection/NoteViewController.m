@@ -35,7 +35,7 @@
                                                         frame:CGRectMake(10, 130, 100, 50)];
     [self.view addSubview:saveButton];
     [saveButton addTarget:self
-                   action:@selector(addNote)
+                   action:@selector(saveNote)
          forControlEvents:UIControlEventTouchUpInside];
 
 }
@@ -43,11 +43,13 @@
 
 #pragma mark - Actions Methods
 
-- (void)addNote {
+- (void)saveNote {
     [self.delegate addNoteToTable:self.noteTextView.text];
     [(NotesTableViewController *)self.delegate viewDidLoad];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+
 
 
 

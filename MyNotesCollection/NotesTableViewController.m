@@ -51,7 +51,6 @@ NSString * const kCellID = @"CellId";
     
     // Don't show lines if there aren't data
     self.notesTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    
 }
 
 
@@ -89,7 +88,7 @@ NSString * const kCellID = @"CellId";
     
     CGSize expectSize = [gettingSizeLabel sizeThatFits:maximumLabelSize];
     
-    return expectSize.height + 10;
+    return expectSize.height + 20;
 }
 
 #pragma mark - NoteViewControllerDelegate Methods

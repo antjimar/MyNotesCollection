@@ -21,7 +21,6 @@
 @property (strong, nonatomic) NoteViewController *noteViewController;
 @property (strong, nonatomic) NotesTableViewController *activeTableViewController;
 
-
 @end
 
 @implementation ViewController
@@ -29,19 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Init model
-    self.notebooks = [[NSMutableArray alloc] init];
     // Set data
-    [self setUpData];
-    
-    // Init properties
-    self.layout = [[UICollectionViewFlowLayout alloc] init];
-    self.notesTableViewController = [[NSMutableArray alloc] init];
-    self.noteViewController = [[NoteViewController alloc] init];
-    self.activeTableViewController = [[NotesTableViewController alloc] init];
-    
-    [self setUpNotesTableViewController];
-
+    [self setUpDataAndInitProperties];
     
     // CollectionView
     [self setUpLayout];
@@ -53,7 +41,6 @@
 
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    
     self.collectionView.pagingEnabled = YES;
     
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class])];
@@ -62,10 +49,11 @@
     UIBarButtonItem *addNote = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNote)];
     [self.navigationItem setRightBarButtonItem:addNote];
     
-    // put TableViewController's son
-    [self.notesTableViewController enumerateObjectsUsingBlock:^(NotesTableViewController *noteTableViewController, NSUInteger idx, BOOL *stop) {
-        [self addChildNoteTableViewController:noteTableViewController forIndex:idx];
-    }];
+    UIBarButtonItem *addNotebook = [[UIBarButtonItem alloc] initWithTitle:@"Add Notebook" style:UIBarButtonItemStyleDone target:self action:@selector(addNotebook)];
+    [self.navigationItem setLeftBarButtonItem:addNotebook];
+    
+    [self setUpNotesTableViewController];
+    
 }
 
 
@@ -83,25 +71,18 @@
     NotesTableViewController *tVC = self.notesTableViewController[indexPath.row];
     [cell.contentView addSubview:tVC.notesTableView];
     [self.navigationItem setTitle:tVC.notesTitle];
+    // To know the active table View Controller
     self.activeTableViewController = tVC;
-    
+
     return cell;
 }
-
 
 
 #pragma mark - UICollectionViewDelegate Methods
 
 
 
-
-
-
-
 #pragma mark - UICollectionViewDelegateFlowLayout Methods
-
-
-
 
 
 
@@ -111,6 +92,13 @@
     self.noteViewController.delegate = (id<NoteViewControllerDelegate>)self.activeTableViewController;
     // open modal
     [self.activeTableViewController presentViewController:self.noteViewController animated:YES completion:nil];
+}
+
+-(void)addNotebook {
+    Notebook *newNotebook = [[Notebook alloc] initWithName:@"New Notebook" andNotes:nil];
+    [self.notebooks addObject:newNotebook];
+    [self addNotebookToNotesTableViewController:newNotebook atIndex:self.notesTableViewController.count];
+    [self.collectionView reloadData];
 }
 
 
@@ -123,6 +111,21 @@
     self.layout.minimumLineSpacing = 0.0f;
 }
 
+- (void)setUpNotesTableViewController {
+    [self.notebooks enumerateObjectsUsingBlock:^(Notebook *notebook, NSUInteger idx, BOOL *stop) {
+        [self addNotebookToNotesTableViewController:notebook atIndex:idx];
+    }];
+}
+
+- (void)addNotebookToNotesTableViewController:(Notebook *)notebook atIndex:(NSUInteger)index {
+    NotesTableViewController *tableViewController = [[NotesTableViewController alloc] init];
+    [notebook.notes enumerateObjectsUsingBlock:^(Note *note, NSUInteger idx, BOOL *stop) {
+        [tableViewController.notes addObject:note];
+    }];
+    tableViewController.notesTitle = notebook.notebookName;
+    [self.notesTableViewController addObject:tableViewController];
+    [self addChildNoteTableViewController:tableViewController forIndex:index];
+}
 
 - (void)addChildNoteTableViewController:(NotesTableViewController *)noteTableView
                                forIndex:(NSUInteger)index {
@@ -132,8 +135,10 @@
     [noteTableView didMoveToParentViewController:self];
 }
 
+- (void)setUpDataAndInitProperties {
+    // Init model
+    self.notebooks = [[NSMutableArray alloc] init];
 
-- (void)setUpData {
     // Create notes
     Note *noteOne = [[Note alloc] initWithNoteName:@"Note 1"];
     Note *noteTwo = [[Note alloc] initWithNoteName:@"Note 2"];
@@ -149,20 +154,15 @@
     Notebook *notebookOne = [[Notebook alloc] initWithName:@"Notebook 1" andNotes:[@[noteOne, noteTwo, noteThree] mutableCopy]];
     Notebook *notebookTwo = [[Notebook alloc] initWithName:@"Notebook 2" andNotes:[@[noteFour, noteFive, noteSix] mutableCopy]];
     Notebook *notebookThree = [[Notebook alloc] initWithName:@"Notebook 3" andNotes:[@[noteSeven, noteEight, noteNine] mutableCopy]];
-    Notebook *notebookEmpty = [[Notebook alloc] init];
+    Notebook *notebookEmpty = [[Notebook alloc] initWithName:@"Notebook 4" andNotes:nil];
     
     self.notebooks = [@[notebookOne, notebookTwo, notebookThree, notebookEmpty] mutableCopy];
-}
-
-- (void)setUpNotesTableViewController {
-    [self.notebooks enumerateObjectsUsingBlock:^(Notebook *notebook, NSUInteger idx, BOOL *stop) {
-        NotesTableViewController *tableViewController = [[NotesTableViewController alloc] init];
-        [notebook.notes enumerateObjectsUsingBlock:^(Note *note, NSUInteger idx, BOOL *stop) {
-            [tableViewController.notes addObject:note];
-        }];
-        tableViewController.notesTitle = notebook.notebookName;
-        [self.notesTableViewController addObject:tableViewController];
-    }];
+    
+    // Init properties
+    self.layout = [[UICollectionViewFlowLayout alloc] init];
+    self.notesTableViewController = [[NSMutableArray alloc] init];
+    self.noteViewController = [[NoteViewController alloc] init];
+    self.activeTableViewController = [[NotesTableViewController alloc] init];
 }
 
 @end
