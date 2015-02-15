@@ -15,6 +15,8 @@ NSString * const kCellID = @"CellId";
 
 @interface NotesTableViewController ()<UITableViewDataSource, UITableViewDelegate, NoteViewControllerDelegate>
 
+@property (strong, nonatomic) UIImageView *imageEmpty;
+
 
 @end
 
@@ -43,14 +45,14 @@ NSString * const kCellID = @"CellId";
                                                         0, 0, 0);
     // Don't show lines if there aren't data
     self.notesTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-
     
-    UIImageView *imageEmpty = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty_table"]];
-    imageEmpty.frame = CGRectMake(95, 67, 224, 259);
+    
+    self.imageEmpty = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty_table"]];
+    self.imageEmpty.frame = CGRectMake(95, 67, 224, 259);
     
     if (self.notes.count == 0) {
         // Show Image
-        [self.notesTableView addSubview:imageEmpty];
+        [self.notesTableView addSubview:self.imageEmpty];
         
     } else {
         self.notesTableView.delegate = self;
@@ -62,10 +64,6 @@ NSString * const kCellID = @"CellId";
         // Don't show lines if there aren't data
         self.notesTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     }
-    
-    // Delegate for NoteViewController
-    self.noteViewController.delegate = self;
-
 }
 
 
@@ -92,6 +90,11 @@ NSString * const kCellID = @"CellId";
 #pragma mark - NoteViewControllerDelegate Methods
 
 -(void)addNoteToTable:(NSString *)noteText {
+    
+    Note *note = [[Note alloc] init];
+    note.noteName = noteText;
+    [self.notes addObject:note];
+    [self.notesTableView reloadData];
     
 }
 

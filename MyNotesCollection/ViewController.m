@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "NotesTableViewController.h"
+#import "NoteViewController.h"
 #import "Notebook.h"
 #import "Note.h"
 
@@ -17,6 +18,8 @@
 @property (strong, nonatomic) UICollectionViewFlowLayout *layout;
 @property (strong, nonatomic) NSMutableArray *notesTableViewController;
 @property (strong, nonatomic) NSMutableArray *notebooks;
+@property (strong, nonatomic) NoteViewController *noteViewController;
+@property (strong, nonatomic) NotesTableViewController *activeTableViewController;
 
 
 @end
@@ -34,6 +37,8 @@
     // Init properties
     self.layout = [[UICollectionViewFlowLayout alloc] init];
     self.notesTableViewController = [[NSMutableArray alloc] init];
+    self.noteViewController = [[NoteViewController alloc] init];
+    self.activeTableViewController = [[NotesTableViewController alloc] init];
     
     [self setUpNotesTableViewController];
 
@@ -61,11 +66,6 @@
     [self.notesTableViewController enumerateObjectsUsingBlock:^(NotesTableViewController *noteTableViewController, NSUInteger idx, BOOL *stop) {
         [self addChildNoteTableViewController:noteTableViewController forIndex:idx];
     }];
-    
-    
-    //[self addChildNoteTableViewController:self.notesTableViewController forIndex:0];
-    //[self.notesTableViewController setNotes:[self.notesNotebookOne mutableCopy]];
-    
 }
 
 
@@ -82,8 +82,8 @@
                                                                                 forIndexPath:indexPath];
     NotesTableViewController *tVC = self.notesTableViewController[indexPath.row];
     [cell.contentView addSubview:tVC.notesTableView];
-    
     [self.navigationItem setTitle:tVC.notesTitle];
+    self.activeTableViewController = tVC;
     
     return cell;
 }
@@ -108,9 +108,9 @@
 #pragma mark - Actions Methods
 
 - (void)addNote {
-    // Check the table that we are.
-    
+    self.noteViewController.delegate = (id<NoteViewControllerDelegate>)self.activeTableViewController;
     // open modal
+    [self.activeTableViewController presentViewController:self.noteViewController animated:YES completion:nil];
 }
 
 
@@ -149,8 +149,9 @@
     Notebook *notebookOne = [[Notebook alloc] initWithName:@"Notebook 1" andNotes:[@[noteOne, noteTwo, noteThree] mutableCopy]];
     Notebook *notebookTwo = [[Notebook alloc] initWithName:@"Notebook 2" andNotes:[@[noteFour, noteFive, noteSix] mutableCopy]];
     Notebook *notebookThree = [[Notebook alloc] initWithName:@"Notebook 3" andNotes:[@[noteSeven, noteEight, noteNine] mutableCopy]];
+    Notebook *notebookEmpty = [[Notebook alloc] init];
     
-    self.notebooks = [@[notebookOne, notebookTwo, notebookThree] mutableCopy];
+    self.notebooks = [@[notebookOne, notebookTwo, notebookThree, notebookEmpty] mutableCopy];
 }
 
 - (void)setUpNotesTableViewController {
@@ -165,20 +166,3 @@
 }
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
