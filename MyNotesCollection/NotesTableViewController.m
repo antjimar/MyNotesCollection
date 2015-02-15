@@ -40,8 +40,6 @@ NSString * const kCellID = @"CellId";
     self.notesTableView.contentInset = UIEdgeInsetsMake([UIApplication sharedApplication].statusBarFrame.size.height
                                                         + [IHUtilities getFrameStatusBar].size.height,
                                                         0, 0, 0);
-    // Don't show lines if there aren't data
-    self.notesTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     self.notesTableView.delegate = self;
     self.notesTableView.dataSource = self;
@@ -49,7 +47,7 @@ NSString * const kCellID = @"CellId";
     // Register cell
     [self.notesTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kCellID];
     
-    // Don't show lines if there aren't data
+    // Don't show any lines if there isn't any data`
     self.notesTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
@@ -62,13 +60,8 @@ NSString * const kCellID = @"CellId";
     Note *note = self.notes[indexPath.row];
     cell.textLabel.text = note.noteName;
     cell.textLabel.numberOfLines = 0;
-    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     
     return cell;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -79,21 +72,12 @@ NSString * const kCellID = @"CellId";
 #pragma mark - Table view delegate Methods
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UILabel *gettingSizeLabel = [[UILabel alloc] init];
-    gettingSizeLabel.text = [(Note *)self.notes[indexPath.row] noteName];
-    gettingSizeLabel.numberOfLines = 0;
-    gettingSizeLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    CGSize maximumLabelSize = CGSizeMake(310, 9999);
-    
-    CGSize expectSize = [gettingSizeLabel sizeThatFits:maximumLabelSize];
-    
-    return expectSize.height + 20;
+    return [self heightForLabelForIndexPath:indexPath] + 20;
 }
 
 #pragma mark - NoteViewControllerDelegate Methods
 
--(void)addNoteToTable:(NSString *)noteText {
+-(void)createdNote:(NSString *)noteText {
     
     Note *note = [[Note alloc] init];
     note.noteName = noteText;
@@ -101,5 +85,19 @@ NSString * const kCellID = @"CellId";
     [self.notesTableView reloadData];
     
 }
+
+#pragma mark - Utils Methods
+
+- (CGFloat)heightForLabelForIndexPath:(NSIndexPath *)indexPath {
+    UILabel *gettingSizeLabel = [[UILabel alloc] init];
+    gettingSizeLabel.text = [(Note *)self.notes[indexPath.row] noteName];
+    gettingSizeLabel.numberOfLines = 0;
+    gettingSizeLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    CGSize maximumLabelSize = CGSizeMake(310, 9999);
+    CGSize expectSize = [gettingSizeLabel sizeThatFits:maximumLabelSize];
+    
+    return expectSize.height;
+}
+
 
 @end

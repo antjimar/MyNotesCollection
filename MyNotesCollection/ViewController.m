@@ -28,32 +28,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Set data
     [self setUpDataAndInitProperties];
-    
-    // CollectionView
-    [self setUpLayout];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.layout];
-    self.collectionView.frame = self.view.bounds;
-    [self.collectionView setCollectionViewLayout:self.layout];
-    [self.view addSubview:self.collectionView];
-    [self.collectionView setBackgroundColor:[UIColor whiteColor]];
-
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
-    self.collectionView.pagingEnabled = YES;
-    
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class])];
-    
-    // BarButtonItem
-    UIBarButtonItem *addNote = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNote)];
-    [self.navigationItem setRightBarButtonItem:addNote];
-    
-    UIBarButtonItem *addNotebook = [[UIBarButtonItem alloc] initWithTitle:@"Add Notebook" style:UIBarButtonItemStyleDone target:self action:@selector(addNotebook)];
-    [self.navigationItem setLeftBarButtonItem:addNotebook];
-    
+    [self setUpCollectionView];
+    [self setUpNavigationBar];
     [self setUpNotesTableViewController];
-    
 }
 
 
@@ -104,11 +82,37 @@
 
 #pragma mark - Helpers Methods
 
+- (void)setUpCollectionView {
+    [self setUpLayout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.layout];
+    self.collectionView.frame = self.view.bounds;
+    [self.collectionView setCollectionViewLayout:self.layout];
+    [self.view addSubview:self.collectionView];
+    [self.collectionView setBackgroundColor:[UIColor whiteColor]];
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
+    self.collectionView.pagingEnabled = YES;
+    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class])];
+}
+
 - (void)setUpLayout {
     self.layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     self.layout.itemSize = self.view.frame.size;
     self.layout.minimumInteritemSpacing = 0.0f;
     self.layout.minimumLineSpacing = 0.0f;
+}
+
+- (void)setUpNavigationBar {
+    UIBarButtonItem *addNote = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                             target:self
+                                                                             action:@selector(addNote)];
+    [self.navigationItem setRightBarButtonItem:addNote];
+    
+    UIBarButtonItem *addNotebook = [[UIBarButtonItem alloc] initWithTitle:@"Add Notebook"
+                                                                    style:UIBarButtonItemStyleDone
+                                                                   target:self
+                                                                   action:@selector(addNotebook)];
+    [self.navigationItem setLeftBarButtonItem:addNotebook];
 }
 
 - (void)setUpNotesTableViewController {
@@ -129,7 +133,6 @@
 
 - (void)addChildNoteTableViewController:(NotesTableViewController *)noteTableView
                                forIndex:(NSUInteger)index {
-    // Add child View Contorller
     [self addChildViewController:noteTableView];
     noteTableView.view.frame = CGRectMake((index * self.view.bounds.size.width), 0, self.view.bounds.size.width, self.view.bounds.size.width);
     [noteTableView didMoveToParentViewController:self];

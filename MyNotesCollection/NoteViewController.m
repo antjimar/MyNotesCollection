@@ -44,7 +44,7 @@
 #pragma mark - Actions Methods
 
 - (void)saveNote {
-    [self.delegate addNoteToTable:self.noteTextView.text];
+    [self.delegate createdNote:self.noteTextView.text];
     [(NotesTableViewController *)self.delegate viewDidLoad];
     [self dismissViewControllerAnimated:YES completion:nil];
 }

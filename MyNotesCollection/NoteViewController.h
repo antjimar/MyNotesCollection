@@ -10,7 +10,7 @@
 
 @protocol NoteViewControllerDelegate <NSObject>
 
-- (void)addNoteToTable:(NSString *)noteText;
+- (void)createdNote:(NSString *)noteText;
 
 @end
 
