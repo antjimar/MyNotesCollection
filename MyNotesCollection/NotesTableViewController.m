@@ -9,6 +9,7 @@
 #import "NotesTableViewController.h"
 #import "NoteViewController.h"
 #import "IHUtilities.h"
+#import "Note.h"
 
 NSString * const kCellID = @"CellId";
 
@@ -25,6 +26,7 @@ NSString * const kCellID = @"CellId";
         _notesTableView = [[UITableView alloc] init];
         _notes = [[NSMutableArray alloc] init];
         _noteViewController = [[NoteViewController alloc] init];
+        _notesTitle = [[NSString alloc] init];
     }
     
     return self;
@@ -72,7 +74,8 @@ NSString * const kCellID = @"CellId";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [self.notesTableView dequeueReusableCellWithIdentifier:kCellID];
-    cell.textLabel.text = self.notes[indexPath.row];
+    Note *note = self.notes[indexPath.row];
+    cell.textLabel.text = note.noteName;
     
     return cell;
 }

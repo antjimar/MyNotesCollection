@@ -14,6 +14,8 @@
 
 @property (strong, nonatomic) UITableView *notesTableView;
 @property (strong, nonatomic) NSMutableArray *notes;
+@property (copy, nonatomic) NSString *notesTitle;
+
 @property (strong, nonatomic) NoteViewController *noteViewController;
 
 

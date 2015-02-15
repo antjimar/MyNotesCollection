@@ -10,4 +10,9 @@
 
 @interface Notebook : NSObject
 
+@property (copy, nonatomic) NSString *notebookName;
+@property (strong, nonatomic) NSMutableArray *notes;
+
+- (instancetype)initWithName:(NSString *)notebookName andNotes:(NSMutableArray *)notes;
+
 @end

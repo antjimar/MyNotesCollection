@@ -10,4 +10,14 @@
 
 @implementation Note
 
+- (instancetype)initWithNoteName:(NSString *)noteName {
+    
+    if (self = [super init]) {
+        _noteName = [noteName copy];
+    }
+    
+    return self;
+}
+
+
 @end

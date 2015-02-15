@@ -10,4 +10,8 @@
 
 @interface Note : NSObject
 
+@property (copy, nonatomic) NSString *noteName;
+
+- (instancetype)initWithNoteName:(NSString *)noteName;
+
 @end

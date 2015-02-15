@@ -10,4 +10,15 @@
 
 @implementation Notebook
 
+- (instancetype)initWithName:(NSString *)notebookName
+                    andNotes:(NSMutableArray *)notes {
+    
+    if (self = [super init]) {
+        _notebookName = [notebookName copy];
+        _notes = notes;
+    }
+    
+    return self;
+}
+
 @end
