@@ -15,9 +15,6 @@ NSString * const kCellID = @"CellId";
 
 @interface NotesTableViewController ()<UITableViewDataSource, UITableViewDelegate, NoteViewControllerDelegate>
 
-@property (strong, nonatomic) UIImageView *imageEmpty;
-
-
 @end
 
 @implementation NotesTableViewController
@@ -46,24 +43,15 @@ NSString * const kCellID = @"CellId";
     // Don't show lines if there aren't data
     self.notesTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
+    self.notesTableView.delegate = self;
+    self.notesTableView.dataSource = self;
     
-    self.imageEmpty = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty_table"]];
-    self.imageEmpty.frame = CGRectMake(95, 67, 224, 259);
+    // Register cell
+    [self.notesTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kCellID];
     
-    if (self.notes.count == 0) {
-        // Show Image
-        [self.notesTableView addSubview:self.imageEmpty];
-        
-    } else {
-        self.notesTableView.delegate = self;
-        self.notesTableView.dataSource = self;
-        
-        // Register cell
-        [self.notesTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kCellID];
-        
-        // Don't show lines if there aren't data
-        self.notesTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    }
+    // Don't show lines if there aren't data
+    self.notesTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
 }
 
 
