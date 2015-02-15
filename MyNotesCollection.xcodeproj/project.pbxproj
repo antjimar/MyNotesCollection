@@ -14,6 +14,9 @@
 		799B8CE51A8E448C0082612E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 799B8CE41A8E448C0082612E /* Images.xcassets */; };
 		799B8CE81A8E448C0082612E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 799B8CE61A8E448C0082612E /* LaunchScreen.xib */; };
 		799B8CF41A8E448C0082612E /* MyNotesCollectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 799B8CF31A8E448C0082612E /* MyNotesCollectionTests.m */; };
+		799B8CFF1A8E4DE80082612E /* NotesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 799B8CFE1A8E4DE80082612E /* NotesTableViewController.m */; };
+		799B8D021A8E4ECF0082612E /* NoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 799B8D011A8E4ECF0082612E /* NoteViewController.m */; };
+		799B8D141A9093590082612E /* IHUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 799B8D131A9093590082612E /* IHUtilities.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +43,12 @@
 		799B8CED1A8E448C0082612E /* MyNotesCollectionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyNotesCollectionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		799B8CF21A8E448C0082612E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		799B8CF31A8E448C0082612E /* MyNotesCollectionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyNotesCollectionTests.m; sourceTree = "<group>"; };
+		799B8CFD1A8E4DE80082612E /* NotesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesTableViewController.h; sourceTree = "<group>"; };
+		799B8CFE1A8E4DE80082612E /* NotesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesTableViewController.m; sourceTree = "<group>"; };
+		799B8D001A8E4ECF0082612E /* NoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteViewController.h; sourceTree = "<group>"; };
+		799B8D011A8E4ECF0082612E /* NoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteViewController.m; sourceTree = "<group>"; };
+		799B8D121A9093590082612E /* IHUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IHUtilities.h; sourceTree = "<group>"; };
+		799B8D131A9093590082612E /* IHUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IHUtilities.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,8 +90,13 @@
 		799B8CD61A8E448C0082612E /* MyNotesCollection */ = {
 			isa = PBXGroup;
 			children = (
+				799B8D0E1A9092870082612E /* Helpers */,
 				799B8CDB1A8E448C0082612E /* AppDelegate.h */,
 				799B8CDC1A8E448C0082612E /* AppDelegate.m */,
+				799B8CFD1A8E4DE80082612E /* NotesTableViewController.h */,
+				799B8CFE1A8E4DE80082612E /* NotesTableViewController.m */,
+				799B8D001A8E4ECF0082612E /* NoteViewController.h */,
+				799B8D011A8E4ECF0082612E /* NoteViewController.m */,
 				799B8CDE1A8E448C0082612E /* ViewController.h */,
 				799B8CDF1A8E448C0082612E /* ViewController.m */,
 				799B8CE11A8E448C0082612E /* Main.storyboard */,
@@ -117,6 +131,15 @@
 				799B8CF21A8E448C0082612E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		799B8D0E1A9092870082612E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				799B8D121A9093590082612E /* IHUtilities.h */,
+				799B8D131A9093590082612E /* IHUtilities.m */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,8 +243,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				799B8CE01A8E448C0082612E /* ViewController.m in Sources */,
+				799B8CFF1A8E4DE80082612E /* NotesTableViewController.m in Sources */,
 				799B8CDD1A8E448C0082612E /* AppDelegate.m in Sources */,
+				799B8D021A8E4ECF0082612E /* NoteViewController.m in Sources */,
 				799B8CDA1A8E448C0082612E /* main.m in Sources */,
+				799B8D141A9093590082612E /* IHUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
