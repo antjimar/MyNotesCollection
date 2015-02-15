@@ -17,15 +17,11 @@
 // List of notes notebooks
 @property (strong, nonatomic) NSDictionary *notes;
 
+// List of NotesTableViewControllers
+@property (strong, nonatomic) NSMutableArray *notesTableViewController;
 
 
-
-
-
-//Pruebas
-@property (strong, nonatomic) NSArray *notesNotebookOne; // Listado de notas de una libreta
-
-@property (strong, nonatomic) NotesTableViewController *notesTableViewController;
+//@property (strong, nonatomic) NotesTableViewController *notesTableViewController;
 
 
 @end
@@ -39,24 +35,24 @@
     
     // Init properties
     self.layout = [[UICollectionViewFlowLayout alloc] init];
-    self.notesNotebookOne = [[NSArray alloc] init];
-    self.notesTableViewController = [[NotesTableViewController alloc] init];
+    self.notesTableViewController = [[NSMutableArray alloc] init];
     
-    // Pruebas
-    self.notesNotebookOne = @[@"nota 1.1.", @"nota 1.2"];
-    self.notesTableViewController.notes = [self.notesNotebookOne mutableCopy];
-    
-    
-    /*
-    // Set noteBooks and notes in notebooks
+    // Set noteBooks and notes in notebooks (provisional data structure)
     self.notes = [[NSDictionary alloc] init];
     self.notes = @{
-                   @"Notebook One": @[@"nota 1.1.", @"nota 1.2"],
-                   @"Notebook Two": @[@"nota 2.1.", @"nota 2.2"],
-                   @"Notebook Three": @[@"nota 3.1.", @"nota 3.2"],
-                   @"Notebook Four": @[@"nota 4.1.", @"nota 4.2"],
+                   @"Notebook0": @[@"nota 0.1.", @"nota 0.2"],
+                   @"Notebook1": @[@"nota 1.1.", @"nota 1.2"],
+                   @"Notebook2": @[@"nota 2.1.", @"nota 2.2"],
+                   @"Notebook3": @[@"nota 3.1.", @"nota 3.2"],
                    };
-*/
+    
+    // Set Data in notesTableViewController
+    [self.notes enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        NotesTableViewController *notesTableViewC = [[NotesTableViewController alloc] init];
+        
+    
+    }];
+    
     // CollectionView
     [self setUpLayout];
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.layout];
@@ -75,8 +71,8 @@
     [self.navigationItem setRightBarButtonItem:addNote];
     
     // put TableViewController's son
-    [self addChildNoteTableViewController:self.notesTableViewController forIndex:0];
-    [self.notesTableViewController setNotes:[self.notesNotebookOne mutableCopy]];
+    //[self addChildNoteTableViewController:self.notesTableViewController forIndex:0];
+    //[self.notesTableViewController setNotes:[self.notesNotebookOne mutableCopy]];
     
 }
 
@@ -93,7 +89,7 @@
     UICollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class])
                                                                                 forIndexPath:indexPath];
     
-    [cell.contentView addSubview:self.notesTableViewController.notesTableView];
+    //[cell.contentView addSubview:self.notesTableViewController.notesTableView];
     
     return cell;
 }

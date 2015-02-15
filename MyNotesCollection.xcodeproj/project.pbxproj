@@ -17,6 +17,8 @@
 		799B8CFF1A8E4DE80082612E /* NotesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 799B8CFE1A8E4DE80082612E /* NotesTableViewController.m */; };
 		799B8D021A8E4ECF0082612E /* NoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 799B8D011A8E4ECF0082612E /* NoteViewController.m */; };
 		799B8D141A9093590082612E /* IHUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 799B8D131A9093590082612E /* IHUtilities.m */; };
+		799B8D181A90A2A90082612E /* Notebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 799B8D171A90A2A90082612E /* Notebook.m */; };
+		799B8D1B1A90A2B50082612E /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 799B8D1A1A90A2B50082612E /* Note.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,8 +49,12 @@
 		799B8CFE1A8E4DE80082612E /* NotesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesTableViewController.m; sourceTree = "<group>"; };
 		799B8D001A8E4ECF0082612E /* NoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteViewController.h; sourceTree = "<group>"; };
 		799B8D011A8E4ECF0082612E /* NoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteViewController.m; sourceTree = "<group>"; };
-		799B8D121A9093590082612E /* IHUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IHUtilities.h; sourceTree = "<group>"; };
-		799B8D131A9093590082612E /* IHUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IHUtilities.m; sourceTree = "<group>"; };
+		799B8D121A9093590082612E /* IHUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IHUtilities.h; path = Helpers/IHUtilities.h; sourceTree = "<group>"; };
+		799B8D131A9093590082612E /* IHUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IHUtilities.m; path = Helpers/IHUtilities.m; sourceTree = "<group>"; };
+		799B8D161A90A2A90082612E /* Notebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Notebook.h; path = Model/Notebook.h; sourceTree = "<group>"; };
+		799B8D171A90A2A90082612E /* Notebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Notebook.m; path = Model/Notebook.m; sourceTree = "<group>"; };
+		799B8D191A90A2B50082612E /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Note.h; path = Model/Note.h; sourceTree = "<group>"; };
+		799B8D1A1A90A2B50082612E /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Note.m; path = Model/Note.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +96,7 @@
 		799B8CD61A8E448C0082612E /* MyNotesCollection */ = {
 			isa = PBXGroup;
 			children = (
+				799B8D151A90A28E0082612E /* Model */,
 				799B8D0E1A9092870082612E /* Helpers */,
 				799B8CDB1A8E448C0082612E /* AppDelegate.h */,
 				799B8CDC1A8E448C0082612E /* AppDelegate.m */,
@@ -140,6 +147,17 @@
 				799B8D131A9093590082612E /* IHUtilities.m */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		799B8D151A90A28E0082612E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				799B8D161A90A2A90082612E /* Notebook.h */,
+				799B8D171A90A2A90082612E /* Notebook.m */,
+				799B8D191A90A2B50082612E /* Note.h */,
+				799B8D1A1A90A2B50082612E /* Note.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,8 +264,10 @@
 				799B8CFF1A8E4DE80082612E /* NotesTableViewController.m in Sources */,
 				799B8CDD1A8E448C0082612E /* AppDelegate.m in Sources */,
 				799B8D021A8E4ECF0082612E /* NoteViewController.m in Sources */,
+				799B8D181A90A2A90082612E /* Notebook.m in Sources */,
 				799B8CDA1A8E448C0082612E /* main.m in Sources */,
 				799B8D141A9093590082612E /* IHUtilities.m in Sources */,
+				799B8D1B1A90A2B50082612E /* Note.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
