@@ -47,14 +47,19 @@ NSString * const kCellID = @"CellId";
     self.notesTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     
-    self.imageEmpty = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty_table"]];
-    self.imageEmpty.frame = CGRectMake(95, 67, 224, 259);
+
     
     if (self.notes.count == 0) {
         // Show Image
+        self.imageEmpty = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty_table"]];
+        self.imageEmpty.frame = CGRectMake(95, 67, 224, 259);
         [self.notesTableView addSubview:self.imageEmpty];
         
     } else {
+        if (self.imageEmpty) {
+            [self.imageEmpty removeFromSuperview];
+            self.imageEmpty = nil;
+        }
         self.notesTableView.delegate = self;
         self.notesTableView.dataSource = self;
         
